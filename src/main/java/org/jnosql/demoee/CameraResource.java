@@ -14,13 +14,12 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.time.LocalDate;
 import java.util.List;
 
-@Path("developers")
+@Path("cameras")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
-public class DevelopersResource {
+public class CameraResource {
 
     @Inject
     CameraService service;
