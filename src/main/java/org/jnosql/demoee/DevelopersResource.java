@@ -27,12 +27,12 @@ public class DevelopersResource {
     DocumentTemplate template;
 
     @GET
-    public List<Developer> listAll(@QueryParam("name") String name) {
+    public List<Camera> listAll(@QueryParam("name") String name) {
         if (name == null) {
-            return template.select(Developer.class).result();
+            return template.select(Camera.class).result();
         }
 
-        return template.select(Developer.class)
+        return template.select(Camera.class)
                 .where("name")
                 .like(name)
                 .result();
@@ -42,15 +42,15 @@ public class DevelopersResource {
     }
 
     @POST
-    public Developer add(NewDeveloperRequest request) {
-        var newDeveloper = Developer.newDeveloper(request.name(), request.birthday());
+    public Camera add(NewDeveloperRequest request) {
+        var newDeveloper = Camera.newDeveloper(request.name(), request.birthday());
         return template.insert(newDeveloper);
     }
 
     @Path("{id}")
     @GET
-    public Developer get(@PathParam("id") String id) {
-        return template.find(Developer.class, id)
+    public Camera get(@PathParam("id") String id) {
+        return template.find(Camera.class, id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
     }
 
@@ -59,8 +59,8 @@ public class DevelopersResource {
 
     @Path("{id}")
     @PUT
-    public Developer update(@PathParam("id") String id, UpdateDeveloperRequest request) {
-        var developer = template.find(Developer.class, id)
+    public Camera update(@PathParam("id") String id, UpdateDeveloperRequest request) {
+        var developer = template.find(Camera.class, id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
         var updatedDeveloper = developer.update(request.name(), request.birthday());
         return template.update(updatedDeveloper);
@@ -70,7 +70,7 @@ public class DevelopersResource {
     @Path("{id}")
     @DELETE
     public void delete(@PathParam("id") String id) {
-        template.delete(Developer.class, id);
+        template.delete(Camera.class, id);
     }
 
 }
