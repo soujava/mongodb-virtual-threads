@@ -41,7 +41,12 @@ public class CameraService {
     }
 
     public Camera insert(Camera camera) {
-        LOGGER.info("Inserting camera: " + camera);
+        LOGGER.info("Inserting camera: " + camera.id());
         return template.insert(camera);
+    }
+
+    public Camera update(Camera update) {
+        LOGGER.info("Updating camera: " + update.id())
+        return template.update(update);
     }
 }
