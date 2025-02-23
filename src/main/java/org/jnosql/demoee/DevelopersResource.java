@@ -13,7 +13,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.eclipse.jnosql.mapping.document.DocumentTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,15 +23,15 @@ import java.util.List;
 public class DevelopersResource {
 
     @Inject
-    DocumentTemplate template;
+    CameraService service;
 
     @GET
     public List<Camera> listAll(@QueryParam("name") String name) {
         if (name == null) {
-            return template.select(Camera.class).result();
+            return service.select(Camera.class).result();
         }
 
-        return template.select(Camera.class)
+        return service.select(Camera.class)
                 .where("name")
                 .like(name)
                 .result();
@@ -44,13 +43,13 @@ public class DevelopersResource {
     @POST
     public Camera add(NewDeveloperRequest request) {
         var newDeveloper = Camera.newDeveloper(request.name(), request.birthday());
-        return template.insert(newDeveloper);
+        return service.insert(newDeveloper);
     }
 
     @Path("{id}")
     @GET
     public Camera get(@PathParam("id") String id) {
-        return template.find(Camera.class, id)
+        return service.find(Camera.class, id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
     }
 
@@ -60,17 +59,17 @@ public class DevelopersResource {
     @Path("{id}")
     @PUT
     public Camera update(@PathParam("id") String id, UpdateDeveloperRequest request) {
-        var developer = template.find(Camera.class, id)
+        var developer = service.find(Camera.class, id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
         var updatedDeveloper = developer.update(request.name(), request.birthday());
-        return template.update(updatedDeveloper);
+        return service.update(updatedDeveloper);
 
     }
 
     @Path("{id}")
     @DELETE
     public void delete(@PathParam("id") String id) {
-        template.delete(Camera.class, id);
+        service.delete(Camera.class, id);
     }
 
 }
