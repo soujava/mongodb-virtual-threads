@@ -17,10 +17,12 @@ public class CameraService {
     DocumentTemplate template;
 
     public List<Camera> findAll() {
+        LOGGER.info("Selecting all cameras");
         return template.select(Camera.class).result();
     }
 
     public List<Camera> findByName(String name) {
+        LOGGER.info("Selecting cameras by name: " + name);
         return template.select(Camera.class)
                 .where("name")
                 .like(name)
@@ -28,13 +30,13 @@ public class CameraService {
     }
 
     public Optional<Camera> findById(String id) {
-        return template.find(Camera.class, id);
+        var camera =  template.find(Camera.class, id);
+        LOGGER.info("Selecting camera by id: " + id + " find? " + camera.isPresent());
+        return camera;
     }
 
     public void deleteById(String id) {
+        LOGGER.info("Deleting camera by id: " + id);
         template.delete(Camera.class, id);
     }
-
-
-
 }

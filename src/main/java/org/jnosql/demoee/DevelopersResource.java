@@ -28,13 +28,9 @@ public class DevelopersResource {
     @GET
     public List<Camera> listAll(@QueryParam("name") String name) {
         if (name == null) {
-            return service.select(Camera.class).result();
+            return service.findAll();
         }
-
-        return service.select(Camera.class)
-                .where("name")
-                .like(name)
-                .result();
+        return service.findAll();
     }
 
     public record NewDeveloperRequest(String name, LocalDate birthday) {
@@ -49,7 +45,7 @@ public class DevelopersResource {
     @Path("{id}")
     @GET
     public Camera get(@PathParam("id") String id) {
-        return service.find(Camera.class, id)
+        return service.findById(id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
     }
 
@@ -59,7 +55,7 @@ public class DevelopersResource {
     @Path("{id}")
     @PUT
     public Camera update(@PathParam("id") String id, UpdateDeveloperRequest request) {
-        var developer = service.find(Camera.class, id)
+        var developer = service.findById(id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
         var updatedDeveloper = developer.update(request.name(), request.birthday());
         return service.update(updatedDeveloper);
