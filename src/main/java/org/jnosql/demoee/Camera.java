@@ -23,4 +23,8 @@ public record Camera(
         String brandWithModel = faker.camera().brandWithModel();
         return new Camera(UUID.randomUUID().toString(), brand, model, brandWithModel);
     }
+
+    public Camera update(Camera request) {
+        return null;
+    }
 }

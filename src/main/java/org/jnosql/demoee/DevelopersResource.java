@@ -46,16 +46,12 @@ public class DevelopersResource {
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
     }
 
-    public record UpdateDeveloperRequest(String name, LocalDate birthday) {
-    }
-
     @Path("{id}")
     @PUT
-    public Camera update(@PathParam("id") String id, UpdateDeveloperRequest request) {
-        var developer = service.findById(id)
+    public Camera update(@PathParam("id") String id, Camera request) {
+        var camera = service.findById(id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
-        var updatedDeveloper = developer.update(request.name(), request.birthday());
-        return service.update(updatedDeveloper);
+        return service.update(camera.update(request));
 
     }
 
