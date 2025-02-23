@@ -28,7 +28,13 @@ public class CameraResource {
 
     @GET
     @VirtualThreads
-    public List<Camera> listAll(@QueryParam("brand") String brand) {
+    public List<Camera> findAll() {
+       return service.findAll();
+    }
+
+    @GET
+    @Path("brand/{brand}")
+    public List<Camera> listAll(@PathParam("brand") String brand) {
         if (brand == null || brand.isBlank()) {
             return service.findAll();
         }
@@ -37,14 +43,12 @@ public class CameraResource {
 
 
     @POST
-    @VirtualThreads
     public Camera add(Camera camera) {
         return service.insert(camera);
     }
 
     @Path("{id}")
     @GET
-    @VirtualThreads
     public Camera get(@PathParam("id") String id) {
         return service.findById(id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
@@ -52,7 +56,6 @@ public class CameraResource {
 
     @Path("{id}")
     @PUT
-    @VirtualThreads
     public Camera update(@PathParam("id") String id, Camera request) {
         var camera = service.findById(id)
                 .orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
@@ -62,7 +65,6 @@ public class CameraResource {
 
     @Path("{id}")
     @DELETE
-    @VirtualThreads
     public void delete(@PathParam("id") String id) {
         service.deleteById(id);
     }
