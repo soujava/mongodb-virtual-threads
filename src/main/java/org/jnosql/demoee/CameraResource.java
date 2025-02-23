@@ -17,11 +17,14 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Path("cameras")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
 public class CameraResource {
+
+    private static final Logger LOGGER = Logger.getLogger(CameraResource.class.getName());
 
     @Inject
     CameraService service;
@@ -29,7 +32,7 @@ public class CameraResource {
     @GET
     @VirtualThreads
     public List<Camera> findAll() {
-       return service.findAll();
+        return service.findAll();
     }
 
     @GET
