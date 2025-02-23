@@ -62,11 +62,11 @@ public class CameraService {
     public void insertAsync(int size) {
         LOGGER.info("Inserting cameras async the size: " + size);
 
-        vThreads.submit(() -> {
-            for (int index = 0; index < size; index++) {
+        for (int index = 0; index < size; index++) {
+            vThreads.submit(() -> {
                 Camera camera = Camera.of(FAKER);
                 template.insert(camera);
-            }
-        });
+            });
+        }
     }
 }
