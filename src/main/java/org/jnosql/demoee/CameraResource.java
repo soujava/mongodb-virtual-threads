@@ -3,6 +3,7 @@ package org.jnosql.demoee;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -58,6 +59,13 @@ public class CameraResource {
     @DELETE
     public void delete(@PathParam("id") String id) {
         service.deleteById(id);
+    }
+
+    @POST
+    @Path("async")
+    public Response insertCamerasAsync(@QueryParam("size") @DefaultValue("100") int size) {
+        service.insertAsync(size);
+        return Response.accepted("Insertion of " + size + " cameras initiated.").build();
     }
 
 }
