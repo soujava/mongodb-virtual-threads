@@ -46,7 +46,7 @@ public class CameraService {
     }
 
     public Camera update(Camera update) {
-        LOGGER.info("Updating camera: " + update.id())
+        LOGGER.info("Updating camera: " + update.id());
         return template.update(update);
     }
 }
