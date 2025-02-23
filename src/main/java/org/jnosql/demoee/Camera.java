@@ -25,6 +25,6 @@ public record Camera(
     }
 
     public Camera update(Camera request) {
-        return null;
+        return new Camera(this.id, request.brand, request.model, request.brandWithModel);
     }
 }
