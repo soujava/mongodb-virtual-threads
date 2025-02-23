@@ -39,4 +39,9 @@ public class CameraService {
         LOGGER.info("Deleting camera by id: " + id);
         template.delete(Camera.class, id);
     }
+
+    public Camera insert(Camera camera) {
+        LOGGER.info("Inserting camera: " + camera);
+        return template.insert(camera);
+    }
 }

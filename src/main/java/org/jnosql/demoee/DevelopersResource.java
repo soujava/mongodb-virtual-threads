@@ -33,13 +33,10 @@ public class DevelopersResource {
         return service.findAll();
     }
 
-    public record NewDeveloperRequest(String name, LocalDate birthday) {
-    }
 
     @POST
-    public Camera add(NewDeveloperRequest request) {
-        var newDeveloper = Camera.newDeveloper(request.name(), request.birthday());
-        return service.insert(newDeveloper);
+    public Camera add(Camera camera) {
+        return service.insert(camera);
     }
 
     @Path("{id}")
@@ -65,7 +62,7 @@ public class DevelopersResource {
     @Path("{id}")
     @DELETE
     public void delete(@PathParam("id") String id) {
-        service.delete(Camera.class, id);
+        service.deleteById(id);
     }
 
 }
