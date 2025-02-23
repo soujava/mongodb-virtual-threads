@@ -21,11 +21,11 @@ public class CameraService {
         return template.select(Camera.class).result();
     }
 
-    public List<Camera> findByName(String name) {
-        LOGGER.info("Selecting cameras by name: " + name);
+    public List<Camera> findByBrand(String brand) {
+        LOGGER.info("Selecting cameras by brand: " + brand);
         return template.select(Camera.class)
-                .where("name")
-                .like(name)
+                .where("brand")
+                .like(brand)
                 .result();
     }
 

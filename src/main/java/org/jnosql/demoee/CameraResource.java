@@ -25,11 +25,11 @@ public class CameraResource {
     CameraService service;
 
     @GET
-    public List<Camera> listAll(@QueryParam("name") String name) {
-        if (name == null) {
+    public List<Camera> listAll(@QueryParam("brand") String brand) {
+        if (brand == null || brand.isBlank()) {
             return service.findAll();
         }
-        return service.findAll();
+        return service.findByBrand(brand);
     }
 
 
