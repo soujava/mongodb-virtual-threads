@@ -18,9 +18,10 @@ public record Camera(
 ) {
 
     public static Camera of(Faker faker) {
-        String brand = faker.camera().brand();
-        String model = faker.camera().model();
-        String brandWithModel = faker.camera().brandWithModel();
+        var camera = faker.camera();
+        String brand = camera.brand();
+        String model = camera.model();
+        String brandWithModel = camera.brandWithModel();
         return new Camera(UUID.randomUUID().toString(), brand, model, brandWithModel);
     }
 
